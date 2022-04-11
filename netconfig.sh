@@ -31,3 +31,9 @@ ip addr add 10.129.0.46/31 dev tun5
 ip addr add fdcb:aa6b:5532:16::1/64 dev tun5
 ip link set dev tun5 alias "R19 FES55"
 ip link set up dev tun5
+
+ip tunnel add tun6 mode gre local 45.151.166.3 remote 176.95.196.38
+ip addr add 10.129.0.10/31 dev tun6
+ip addr add fdcb:aa6b:5532:6::1/64 dev tun6
+ip link set dev tun6 alias "R15 Gatherweg"
+ip link set up dev tun6
