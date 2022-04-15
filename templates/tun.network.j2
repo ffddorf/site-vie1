@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+[Match]
+Name={{ item.name }}
+
+[Network]
+{% for address in item.addresses %}
+Address={{ address }}
+{% endfor %}

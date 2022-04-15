@@ -2,12 +2,29 @@
 - name: Configure Network Interfaces with systemd-networkd
   hosts: all
   tasks:
-    - name: Copy configuration
+    - name: Configure manual interfaces
       copy:
         src: files/networkd/
         dest: /etc/systemd/network/
         mode: 0644
+    - name: Create netdev
+      template:
+        src: tun.netdev.j2
+        dest: "/etc/systemd/network/30-{{ item.name }}.netdev"
+        mode: 0644
       notify: Restart systemd-networkd
+      loop: "{{ tunnels }}"
+      loop_control:
+        label: "{{ item.name }}"
+    - name: Create network
+      template:
+        src: tun.network.j2
+        dest: "/etc/systemd/network/30-{{ item.name }}.network"
+        mode: 0644
+      notify: Restart systemd-networkd
+      loop: "{{ tunnels }}"
+      loop_control:
+        label: "{{ item.name }}"
 
   handlers:
     - name: Restart systemd-networkd

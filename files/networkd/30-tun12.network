@@ -1,7 +1,0 @@
-# CR3
-[Match]
-Name=tun12
-
-[Network]
-Address=10.129.0.51/31
-Address=fdcb:aa6b:5532:18::2/64

@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+[NetDev]
+Name={{ item.name }}
+Kind=gre
+MTUBytes=1476
+Description="{{ item.description }}"
+
+[Tunnel]
+Independent=true
+Remote={{ item.remote }}
+Local={{ local_tunnel_endpoint }}
