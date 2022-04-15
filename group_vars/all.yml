@@ -1,4 +1,5 @@
 local_tunnel_endpoint: "5.1.66.10"
+as_number: "207871"
 
 peers:
   - name: "CR3"
@@ -7,15 +8,20 @@ peers:
       - "10.129.0.51/31"
       - "fdcb:aa6b:5532:18::2/64"
     remote: "185.66.192.193"
+    type: backbone
   - name: "CR4"
     interface: tun13
     addresses:
       - 10.129.0.53/31
       - fdcb:aa6b:5532:19::2/64
     remote: "185.66.192.195"
+    type: backbone
   - name: "supernode03"
     interface: tun14
     addresses:
       - 10.129.0.68/31
       - fdcb:aa6b:5532:21::1/64
     remote: "116.203.238.228"
+    prefixes:
+      - 2001:678:b7c:100::/128
+      - 45.151.166.32/32

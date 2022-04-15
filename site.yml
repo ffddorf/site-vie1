@@ -32,6 +32,30 @@
         name: systemd-networkd
         state: restarted
 
-
-
-
+- name: Configure peering
+  hosts: all
+  tasks:
+    - name: Ensure config directory is present
+      file:
+        path: /etc/bird/peers
+        state: directory
+    - name: Create common config
+      template:
+        src: common.bird.conf.j2
+        dest: /etc/bird/peers/0-common.conf
+        mode: 0644
+      notify: reconfigure bird
+    - name: Create peers
+      template:
+        src: peer.bird.conf.j2
+        dest: /etc/bird/peers/1-{{ item.name }}.conf
+        mode: 0644
+      loop: "{{ peers }}"
+      loop_control:
+        label: "{{ item.name }}"
+      notify: reconfigure bird
+  handlers:
+    - name: reconfigure bird
+      service:
+        name: bird
+        state: reloaded
