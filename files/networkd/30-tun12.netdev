@@ -1,0 +1,11 @@
+# CR3 
+[NetDev]
+Name=tun12
+Kind=gre
+MTUBytes=1476
+Description="CR3"
+
+[Tunnel]
+Independent=true
+Local=5.1.66.10
+Remote=185.66.192.193

@@ -1,0 +1,20 @@
+---
+- name: Configure Network Interfaces with systemd-networkd
+  hosts: all
+  tasks:
+    - name: Copy configuration
+      copy:
+        src: files/networkd/
+        dest: /etc/systemd/network/
+        mode: 0644
+      notify: Restart systemd-networkd
+
+  handlers:
+    - name: Restart systemd-networkd
+      service:
+        name: systemd-networkd
+        state: restarted
+
+
+
+
