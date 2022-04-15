@@ -1,9 +1,9 @@
 # {{ ansible_managed }}
 [NetDev]
-Name={{ item.name }}
+Name={{ item.interface }}
 Kind=gre
 MTUBytes=1476
-Description="{{ item.description }}"
+Description="{{ item.name }}"
 
 [Tunnel]
 Independent=true

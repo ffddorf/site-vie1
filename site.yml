@@ -10,7 +10,7 @@
     - name: Create netdev
       template:
         src: tun.netdev.j2
-        dest: "/etc/systemd/network/30-{{ item.name }}.netdev"
+        dest: "/etc/systemd/network/30-{{ item.interface }}.netdev"
         mode: 0644
       notify: Restart systemd-networkd
       loop: "{{ tunnels }}"
@@ -19,7 +19,7 @@
     - name: Create network
       template:
         src: tun.network.j2
-        dest: "/etc/systemd/network/30-{{ item.name }}.network"
+        dest: "/etc/systemd/network/30-{{ item.interface }}.network"
         mode: 0644
       notify: Restart systemd-networkd
       loop: "{{ tunnels }}"

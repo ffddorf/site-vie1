@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 [Match]
-Name={{ item.name }}
+Name={{ item.interface }}
 
 [Network]
 {% for address in item.addresses %}
