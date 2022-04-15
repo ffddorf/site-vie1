@@ -1,6 +1,6 @@
 local_tunnel_endpoint: "5.1.66.10"
 
-tunnels:
+peers:
   - name: "CR3"
     interface: tun12
     addresses:

@@ -13,7 +13,7 @@
         dest: "/etc/systemd/network/30-{{ item.interface }}.netdev"
         mode: 0644
       notify: Restart systemd-networkd
-      loop: "{{ tunnels }}"
+      loop: "{{ peers }}"
       loop_control:
         label: "{{ item.name }}"
     - name: Create network
@@ -22,7 +22,7 @@
         dest: "/etc/systemd/network/30-{{ item.interface }}.network"
         mode: 0644
       notify: Restart systemd-networkd
-      loop: "{{ tunnels }}"
+      loop: "{{ peers }}"
       loop_control:
         label: "{{ item.name }}"
 
