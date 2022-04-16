@@ -1,4 +1,5 @@
-local_tunnel_endpoint: "5.1.66.10"
+core_tunnel_endpoint: "5.1.66.10"
+site_tunnel_endpoint: "45.151.166.5"
 
 core_peers:
   - name: "CR3"
