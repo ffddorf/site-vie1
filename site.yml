@@ -47,8 +47,8 @@
       notify: reconfigure bird
     - name: Create core peers
       template:
-        src: peer.bird.conf.j2
-        dest: /etc/bird/peers/1-{{ item.name }}.conf
+        src: core.bird.conf.j2
+        dest: /etc/bird/peers/1-core-{{ item.name }}.conf
         mode: 0644
       loop: "{{ core_peers }}"
       loop_control:

@@ -12,18 +12,16 @@ filter PEER_DEFAULT6 {
   reject;
 }
 
-filter BACKBONE4_IN {
+filter FFDDORF_V4 {
+  if net ~ [ 45.151.166.0/24+ ] then {
+    accept;
+  }
   reject;
 }
 
-filter BACKBONE4_OUT {
-  reject;
-}
-
-filter BACKBONE6_IN {
-  reject;
-}
-
-filter BACKBONE6_OUT {
+filter FFDDORF_V6 {
+  if net ~ [ 2001:678:b7c::/48+ ] then {
+    accept;
+  }
   reject;
 }
