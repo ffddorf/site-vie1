@@ -13,7 +13,7 @@
         dest: "/etc/systemd/network/30-{{ item.interface }}.netdev"
         mode: 0644
       notify: Restart systemd-networkd
-      loop: "{{ peers }}"
+      loop: "{{ tunnel_peers }}"
       loop_control:
         label: "{{ item.name }}"
     - name: Create network
@@ -22,7 +22,7 @@
         dest: "/etc/systemd/network/30-{{ item.interface }}.network"
         mode: 0644
       notify: Restart systemd-networkd
-      loop: "{{ peers }}"
+      loop: "{{ tunnel_peers }}"
       loop_control:
         label: "{{ item.name }}"
 
@@ -45,12 +45,12 @@
         dest: /etc/bird/peers/0-common.conf
         mode: 0644
       notify: reconfigure bird
-    - name: Create peers
+    - name: Create core peers
       template:
         src: peer.bird.conf.j2
         dest: /etc/bird/peers/1-{{ item.name }}.conf
         mode: 0644
-      loop: "{{ peers }}"
+      loop: "{{ core_peers }}"
       loop_control:
         label: "{{ item.name }}"
       notify: reconfigure bird

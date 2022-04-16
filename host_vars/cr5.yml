@@ -1,0 +1,98 @@
+local_tunnel_endpoint: "5.1.66.10"
+
+core_peers:
+  - name: "CR3"
+    interface: tun12
+    addresses:
+      - "10.129.0.51/31"
+      - "fdcb:aa6b:5532:18::2/64"
+    remote: "185.66.192.193"
+  - name: "CR4"
+    interface: tun13
+    addresses:
+      - 10.129.0.53/31
+      - fdcb:aa6b:5532:19::2/64
+    remote: "185.66.192.195"
+
+site_peers:
+  - name: "supernode03"
+    interface: tun14
+    addresses:
+      - 10.129.0.68/31
+      - fdcb:aa6b:5532:21::1/64
+    remote: "116.203.238.228"
+    prefixes:
+      - 2001:678:b7c:100::/56
+      - 45.151.166.32/29
+  - name: "supernode04"
+    interface: tun15
+    addresses:
+      - 10.129.0.70/31
+      - fdcb:aa6b:5532:22::1/64
+    remote: "23.88.124.216"
+    prefixes:
+      - 2001:678:b7c:100::/56
+      - 45.151.166.32/29
+  - name: "supernode05"
+    interface: tun16
+    addresses:
+      - 10.129.0.72/31
+      - fdcb:aa6b:5532:23::1/64
+    remote: "195.201.122.198"
+    prefixes:
+      - 2001:678:b7c:100::/56
+      - 45.151.166.32/29
+  - name: "supernode06"
+    interface: tun17
+    addresses:
+      - 10.129.0.74/31
+      - fdcb:aa6b:5532:24::1/64
+    remote: "49.12.6.246"
+    prefixes:
+      - 2001:678:b7c:100::/56
+      - 45.151.166.32/29
+  - name: "R9"
+    interface: tun18
+    addresses:
+      - 10.129.0.20/31
+      - fdcb:aa6b:5532:a::1/64
+    remote: "178.13.251.85"
+    prefixes:
+      - 2001:678:b7c:1300::/56
+      - 45.151.166.13/32
+  - name: "R10"
+    interface: tun19
+    addresses:
+      - 10.129.0.22/31
+      - fdcb:aa6b:5532:b::1/64
+    remote: "178.13.251.114"
+    prefixes:
+      - 2001:678:b7c:1400::/56
+      - 45.151.166.14/32
+  - name: "R14"
+    interface: tun20
+    addresses:
+      - 10.129.0.24/31
+      - fdcb:aa6b:5532:c::1/64
+    remote: "178.15.126.23"
+    prefixes:
+      - 2001:678:b7c:1600::/56
+      - 45.151.166.16/32
+  - name: "R15"
+    interface: tun21
+    addresses:
+      - 10.129.0.64/31
+      - fdcb:aa6b:5532:1f::1/64
+    remote: "176.95.196.38"
+    prefixes:
+      - 2001:678:b7c:1800::/56
+      - 45.151.166.15/32
+  - name: "R19"
+    interface: tun22
+    addresses:
+      - 10.129.0.66/31
+      - fdcb:aa6b:5532:20::1/64
+    remote: "178.13.101.212"
+    prefixes:
+      - 2001:678:b7c:1700::/56
+      - 45.151.166.17/32
