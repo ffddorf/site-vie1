@@ -67,6 +67,15 @@
       loop_control:
         label: "{{ item.name }}"
       notify: reconfigure bird
+    - name: Create site peers
+      template:
+        src: peer.bird.conf.j2
+        dest: /etc/bird/peers/1-site-{{ item.name }}.conf
+        mode: 0644
+      loop: "{{ site_peers }}"
+      loop_control:
+        label: "{{ item.name }}"
+      notify: reconfigure bird
   handlers:
     - name: reconfigure bird
       service:
