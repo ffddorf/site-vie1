@@ -1,0 +1,83 @@
+---
+- name: Configure Network Interfaces with systemd-networkd
+  hosts: all
+  tasks:
+    - name: Configure manual interfaces
+      copy:
+        src: files/networkd/
+        dest: /etc/systemd/network/
+        mode: 0644
+    - name: Create core netdev
+      template:
+        src: tun.netdev.j2
+        dest: "/etc/systemd/network/30-{{ item.interface }}.netdev"
+        mode: 0644
+      notify: Restart systemd-networkd
+      loop: "{{ core_peers }}"
+      vars:
+        local_tunnel_endpoint: "{{ core_tunnel_endpoint }}"
+      loop_control:
+        label: "{{ item.name }}"
+    - name: Create site netdev
+      template:
+        src: tun.netdev.j2
+        dest: "/etc/systemd/network/30-{{ item.interface }}.netdev"
+        mode: 0644
+      notify: Restart systemd-networkd
+      loop: "{{ site_peers }}"
+      vars:
+        local_tunnel_endpoint: "{{ site_tunnel_endpoint }}"
+      loop_control:
+        label: "{{ item.name }}"
+    - name: Create network
+      template:
+        src: tun.network.j2
+        dest: "/etc/systemd/network/30-{{ item.interface }}.network"
+        mode: 0644
+      notify: Restart systemd-networkd
+      loop: "{{ tunnel_peers }}"
+      loop_control:
+        label: "{{ item.name }}"
+
+  handlers:
+    - name: Restart systemd-networkd
+      service:
+        name: systemd-networkd
+        state: restarted
+
+- name: Configure peering
+  hosts: all
+  tasks:
+    - name: Ensure config directory is present
+      file:
+        path: /etc/bird/peers
+        state: directory
+    - name: Create common config
+      template:
+        src: common.bird.conf.j2
+        dest: /etc/bird/peers/0-common.conf
+        mode: 0644
+      notify: reconfigure bird
+    - name: Create core peers
+      template:
+        src: core.bird.conf.j2
+        dest: /etc/bird/peers/1-core-{{ item.name }}.conf
+        mode: 0644
+      loop: "{{ core_peers }}"
+      loop_control:
+        label: "{{ item.name }}"
+      notify: reconfigure bird
+    - name: Create site peers
+      template:
+        src: peer.bird.conf.j2
+        dest: /etc/bird/peers/1-site-{{ item.name }}.conf
+        mode: 0644
+      loop: "{{ site_peers }}"
+      loop_control:
+        label: "{{ item.name }}"
+      notify: reconfigure bird
+  handlers:
+    - name: reconfigure bird
+      service:
+        name: bird
+        state: reloaded

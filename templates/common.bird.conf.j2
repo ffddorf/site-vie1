@@ -1,0 +1,27 @@
+filter PEER_DEFAULT4 {
+  if net = 0.0.0.0/0 then {
+    accept;
+  }
+  reject;
+}
+
+filter PEER_DEFAULT6 {
+  if net = ::/0 then {
+    accept;
+  }
+  reject;
+}
+
+filter FFDDORF_V4 {
+  if net ~ [ 45.151.166.0/24+ ] then {
+    accept;
+  }
+  reject;
+}
+
+filter FFDDORF_V6 {
+  if net ~ [ 2001:678:b7c::/48+ ] then {
+    accept;
+  }
+  reject;
+}

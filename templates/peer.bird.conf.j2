@@ -1,0 +1,52 @@
+filter PEER_{{ item.name|upper }}_IN4 {
+{% for prefix in (item.prefixes | ipv4) %}
+    if net = {{ prefix }} then {
+        accept;
+    }
+{% endfor %}
+    reject;
+}
+
+filter PEER_{{ item.name|upper }}_IN6 {
+{% for prefix in (item.prefixes | ipv6) %}
+    if net = {{ prefix }} then {
+        accept;
+    }
+{% endfor %}
+    reject;
+}
+
+{% for peer in (item.addresses | ipv4) %}
+protocol bgp peer_{{ item.name }}_v4 {
+    local {{ peer | ipaddr('address') }} as {{ as_number }};
+    neighbor {{ peer | ipaddr('peer') }} as {{ as_number }};
+
+    ipv4 {
+        next hop self;
+        import filter PEER_{{ item.name|upper }}_IN4;
+        export filter PEER_DEFAULT4;
+    };
+}
+{% endfor %}
+
+{% for peer in (item.addresses | ipv6) %}
+protocol bgp peer_{{ item.name }}_v6 {
+    local {{ peer | ipaddr("address") }} as {{ as_number }};
+{#
+    IPv6 tunnel addresses use `.1` and `.2`
+    If there is a previous address in the network (aka local uses `.2`)
+    use the previous address, otherwise use the next one.
+#}
+{% if (peer | previous_nth_usable(1)) %}
+    neighbor {{ peer | previous_nth_usable(1) }} as {{ as_number }};
+{% else %}
+    neighbor {{ peer | next_nth_usable(1) }} as {{ as_number }};
+{% endif %}
+
+    ipv6 {
+        next hop self;
+        import filter PEER_{{ item.name|upper }}_IN6;
+        export filter PEER_DEFAULT6;
+    };
+}
+{% endfor %}

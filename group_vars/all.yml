@@ -1,0 +1,5 @@
+as_number: "207871"
+
+core_peers: []
+site_peers: []
+tunnel_peers: "{{ core_peers + site_peers }}"
