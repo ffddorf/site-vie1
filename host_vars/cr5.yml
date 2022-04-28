@@ -23,7 +23,7 @@ site_peers:
       - fdcb:aa6b:5532:21::1/64
     remote: "116.203.238.228"
     prefixes:
-      - 2001:678:b7c:100::/56
+      - 2001:678:b7c:1500::/56
       - 45.151.166.32/29
   - name: "supernode04"
     interface: tun15
@@ -32,7 +32,7 @@ site_peers:
       - fdcb:aa6b:5532:22::1/64
     remote: "23.88.124.216"
     prefixes:
-      - 2001:678:b7c:100::/56
+      - 2001:678:b7c:1500::/56
       - 45.151.166.32/29
   - name: "supernode05"
     interface: tun16
@@ -41,7 +41,7 @@ site_peers:
       - fdcb:aa6b:5532:23::1/64
     remote: "195.201.122.198"
     prefixes:
-      - 2001:678:b7c:100::/56
+      - 2001:678:b7c:1500::/56
       - 45.151.166.32/29
   - name: "supernode06"
     interface: tun17
@@ -50,7 +50,7 @@ site_peers:
       - fdcb:aa6b:5532:24::1/64
     remote: "49.12.6.246"
     prefixes:
-      - 2001:678:b7c:100::/56
+      - 2001:678:b7c:1500::/56
       - 45.151.166.32/29
   - name: "R9"
     interface: tun18
