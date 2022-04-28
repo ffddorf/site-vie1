@@ -1,6 +1,6 @@
 filter PEER_{{ item.name|upper }}_IN4 {
 {% for prefix in (item.prefixes | ipv4) %}
-    if net = {{ prefix }} then {
+    if net ~ [ {{ prefix }}+ ] then {
         accept;
     }
 {% endfor %}
@@ -9,7 +9,7 @@ filter PEER_{{ item.name|upper }}_IN4 {
 
 filter PEER_{{ item.name|upper }}_IN6 {
 {% for prefix in (item.prefixes | ipv6) %}
-    if net = {{ prefix }} then {
+    if net ~ [ {{ prefix }}+ ] then {
         accept;
     }
 {% endfor %}
