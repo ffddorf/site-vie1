@@ -97,3 +97,12 @@ site_peers:
     prefixes:
       - 2001:678:b7c:1700::/56
       - 45.151.166.17/32
+  - name: "FFRS_R1"
+    interface: tun23
+    addresses:
+      - 10.129.0.58/31
+      - fdcb:aa6b:5532:1c::1/64
+    remote: "87.191.181.11"
+    prefixes:
+      - 2001:678:b7c:1900::/60
+      - 45.151.166.48/32
