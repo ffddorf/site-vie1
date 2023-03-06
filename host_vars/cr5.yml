@@ -106,3 +106,12 @@ site_peers:
     prefixes:
       - 2001:678:b7c:1900::/60
       - 45.151.166.48/32
+  - name: "R18"
+    interface: tun24
+    addresses:
+      - 10.129.0.84/31
+      - fdcb:aa6b:5532:2a::1/64
+    remote: "178.13.92.242"
+    prefixes:
+      - 45.151.166.19/32
+      - 2001:678:b7c:1a00::/56
